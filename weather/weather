@@ -43,20 +43,15 @@ ${offset 370}${voffset -183}${font ADELE:size=22}
 # --- WOEID (Location id) --- #
 ${execi 250 sh ./update.sh}\
 \
-# --- Temperature --- #
+# --- Temperature && textual condition--- #
 #######################
 \
-${font ADELE :size=30}${offset 0}${voffset 10}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.temp -r}°${font ADELE :size=15}C${font ADELE :size=30}${voffset -20}  |
+${font ADELE :size=30}${offset 0}${voffset 10}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.temp -r}°${font ADELE :size=15}C${font ADELE :size=30}${voffset -20}  | ${font Roboto Light:size=18}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.text -r}
 \
 # --- Weather icon --- #
 ########################
 \
 ${execi 300 cp -f outlineW/$(cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.code -r).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 45,8 -s 80x80}
-\
-# --- Textual condition (e.g. Partly cloudy) --- #
-##################################################
-\
-${font Roboto Light:size=18}${offset 87}${voffset -85}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.text -r}
 \
 # --- Icon - high temperature --- #
 ###################################
@@ -66,7 +61,7 @@ ${image arrow-up.png -p 0,145 -s 12x12}
 # --- High temperature --- #
 ############################
 \
-${font Roboto Light :size=12}${offset 20}${voffset -25}${execi 300 cat ~/.cache/conky-weather.json | jq '.query.results.channel.item.forecast | .[0].high' -r}°
+${font Roboto Light :size=12}${offset 20}${voffset -60}${execi 300 cat ~/.cache/conky-weather.json | jq '.query.results.channel.item.forecast | .[0].high' -r}°
 \
 # --- Icon - low temperature icon --- #
 #######################################
