@@ -1,0 +1,94 @@
+use_xft yes
+xftfont 123:size=8
+xftalpha 0.1
+update_interval 60
+total_run_times 0
+
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour 000000
+own_window_argb_visual yes
+own_window_argb_value 0
+
+double_buffer yes
+#minimum_size 250 5
+#maximum_width 500
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color white
+default_shade_color red
+default_outline_color green
+alignment top_middle
+gap_x 0
+gap_y 160
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 1
+override_utf8_locale yes
+
+minimum_size 0 0
+TEXT
+${goto 90}${voffset 25}
+${goto 90}${voffset -}${font LG Weather_Z:size=100}
+${offset 370}${voffset -183}${font ADELE:size=22}
+\
+# --- Weather --- #
+###################
+\
+# --- WOEID (Location id) --- #
+${execi 250 sh ./update.sh}\
+\
+# --- Temperature --- #
+#######################
+\
+${font ADELE :size=30}${offset 0}${voffset 10}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.temp -r}°${font ADELE :size=15}C${font ADELE :size=30}${voffset -20}  |
+\
+# --- Weather icon --- #
+########################
+\
+${execi 300 cp -f outlineW/$(cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.code -r).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 45,8 -s 80x80}
+\
+# --- Textual condition (e.g. Partly cloudy) --- #
+##################################################
+\
+${font Roboto Light:size=18}${offset 87}${voffset -85}${execi 300 cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.text -r}
+\
+# --- Icon - high temperature --- #
+###################################
+\
+${image arrow-up.png -p 0,145 -s 12x12}
+\
+# --- High temperature --- #
+############################
+\
+${font Roboto Light :size=12}${offset 20}${voffset -25}${execi 300 cat ~/.cache/conky-weather.json | jq '.query.results.channel.item.forecast | .[0].high' -r}°
+\
+# --- Icon - low temperature icon --- #
+#######################################
+\
+${image arrow-down.png -p 47,145 -s 12x12}
+\
+# --- Low temperature --- #
+###########################
+\
+${font Roboto Light :size=12}${offset 63}${voffset -42}${execi 300 cat ~/.cache/conky-weather.json | jq '.query.results.channel.item.forecast | .[0].low' -r}°
+\
+# --- Icon - map marker --- #
+#############################
+\
+${image map-marker.png -p 88,142 -s 20x16}
+\
+# --- Location name (city and country) --- #
+############################################
+\
+${font Roboto Light :size=12}${offset 110}${voffset -42}${execi 300 cat ~/.cache/conky-weather.json | jq '.query.results.channel.location' | jq '{text: (.city + " -" + .region + ", " + .country
+)}' | jq .text -r}
+
+${goto 285}${voffset -35}${font adele:bold:size=25}${time %p}
+
+
