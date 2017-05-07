@@ -23,7 +23,7 @@ default_color white
 default_shade_color red
 default_outline_color green
 alignment top_middle
-gap_x 0
+gap_x -80
 gap_y 160
 no_buffers yes
 uppercase no
@@ -51,7 +51,7 @@ ${font ADELE :size=30}${offset 0}${voffset 10}${execi 300 cat ~/.cache/conky-wea
 # --- Weather icon --- #
 ########################
 \
-${execi 300 cp -f outlineW/$(cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.code -r).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 45,8 -s 80x80}
+${execi 300 cp -f outlineW/$(cat ~/.cache/conky-weather.json | jq .query.results.channel.item.condition.code -r).png ~/.cache/conky-weather.png}${image ~/.cache/conky-weather.png -p 45,8 -s 80x80 -f 200}
 \
 # --- Icon - high temperature --- #
 ###################################
