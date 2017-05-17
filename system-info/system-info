@@ -11,7 +11,7 @@ draw_shades false
 use_xft true
 font Ubuntu Mono:normal:size=11
 gap_x 70
-gap_y 290
+gap_y 260
 maximum_width 320
 minimum_width 320
 no_buffers true
@@ -21,7 +21,7 @@ own_window_type desktop
 own_window_transparent yes
 own_window_argb_visual yes
 own_window_argb_value 0
-own_window_hints undecoratedbelowstickyskip_taskbarskip_pager
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 stippled_borders 2
 update_interval 60
